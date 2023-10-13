@@ -1,6 +1,4 @@
--- create dimension tables
-
- CREATE TABLE IF NOT EXISTS dim_date 
+CREATE TABLE IF NOT EXISTS dim_date 
 (
 	date_key integer NOT NULL PRIMARY KEY,
 	date DATE NOT NULL,
@@ -60,16 +58,4 @@ CREATE TABLE IF NOT EXISTS dim_actor
 	film_id INTEGER NOT NULL,
 	actor_id INTEGER NOT NULL,
 	actor_name VARCHAR(50) NOT NULL
-);
-
--- create fact table
-
-CREATE TABLE IF NOT EXISTS fact_sales
-(
-	date_key INTEGER REFERENCES dim_date(date_key),
-	store_id INTEGER REFERENCES dim_store(store_id),
-	customer_id SMALLINT REFERENCES dim_customer(customer_id),
-	film_id INTEGER REFERENCES dim_film(film_id),
-	film_actor_id VARCHAR(50) REFERENCES dim_actor(film_actor_id),
-	sales REAL
 );
