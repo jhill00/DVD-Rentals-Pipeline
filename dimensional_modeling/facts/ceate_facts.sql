@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS fact_sales
 	customer_id SMALLINT REFERENCES dim_customer(customer_id),
 	film_id INTEGER REFERENCES dim_film(film_id),
 	film_actor_id VARCHAR(50) REFERENCES dim_actor(film_actor_id),
-	sales REAL
+	sales NUMERIC
 );

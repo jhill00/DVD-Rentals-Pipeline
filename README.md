@@ -5,7 +5,7 @@ In 2023, DVDs are at their prime. So today, we will analyze the performance of a
 Before we can choose what type of dimensional model to use, we need to first think about what questions we want answered. As business owners we want to know:
 - which store had the most sales?
 - which actors featured in the top films?
-- what location do our top customers come from?
+- where are our top 10 customers from?
 - what are the worst selling films?
 
 There are many dimensional models to choose from, but given the use case and complexity of our dataset, a star schema is chosen. Star schema consists of fact and dimension tables; all dimension tables have a relationship with and only with the fact table. This creates the image of a star, hence the name. Dimension tables contain qualitative information such as addresses, labels, categories, etc.. In some cases, dimension tables are denormalized but will always have a primary key. A fact table contains numerical information and foreign keys to reference the dimension tables.
