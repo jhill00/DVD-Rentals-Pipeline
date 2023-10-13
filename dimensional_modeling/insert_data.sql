@@ -1,4 +1,4 @@
--- add data to dimension tables
+-- insert data to dimension tables
 
 INSERT INTO dim_date
 (date_key, date, year, quarter, month, day, weekend) 
@@ -46,20 +46,18 @@ INNER JOIN
 ;
 
 INSERT INTO dim_film
-(film_actor_id, title, description, release_year, category, actor, rental_duration, 
+(film_id, title, description, release_year, category, rental_duration, 
 rental_rate, film_length, rating, special_features, film_language)
 SELECT
-	CONCAT(f.title, '_', f.film_id, a.actor_id) as film_actor_id,
+	f.film_id,
 	f.title,
 	f.description,
 	f.release_year,
 	c.name as category,
-	(a.first_name || ' ' || a.last_name) as actor,
 	f.rental_duration,
 	f.rental_rate,
 	f.length as film_length,
 	f.rating,
-	f.last_update,
 	f.special_features,
 	l.name as film_language
 FROM
@@ -70,16 +68,14 @@ INNER JOIN
 	category as c ON fc.category_id = c.category_id
 INNER JOIN
 	language as l ON f.language_id = l.language_id
-INNER JOIN
-	film_actor as fa ON f.film_id = fa.film_id
-INNER JOIN
-	actor as a ON fa.actor_id = a.actor_id
 ;
 
 INSERT INTO dim_store
-(store_staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id)
+(store_staff_id, store_id, staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id)
 SELECT
-	CONCAT(so.store_id, sa.staff_id)::INTEGER as store_staff_id,
+	CONCAT(sa.store_id, sa.staff_id)::INTEGER as store_staff_id,
+	sa.store_id,
+	sa.staff_id,
 	(sa.first_name || ' ' || last_name) as employee_name,
 	sa.email,
 	sa.active,
@@ -90,4 +86,40 @@ FROM
 	staff as sa
 INNER JOIN
 	store as so ON sa.store_id = so.store_id
+;
+
+INSERT INTO dim_actor
+(film_actor_id, film_id, actor_id, actor_name)
+SELECT
+	CONCAT(fa.film_id, '_', fa.actor_id) as film_actor_id,
+	fa.film_id,
+	fa.actor_id,
+	(a.first_name || ' ' || a.last_name) as actor_name
+FROM
+	film_actor as fa
+INNER JOIN
+	actor as a ON a.actor_id = fa.actor_id
+;
+
+-- insert data to fact table
+
+INSERT INTO fact_sales
+(date_key, store_staff_id, customer_id, film_id, film_actor_id, sales)
+SELECT
+	DISTINCT(TO_CHAR(p.payment_date, 'yyyymmdd')::INTEGER) as date_key,
+	CONCAT(s.store_id, s.staff_id)::INTEGER as store_staff_id,
+	p.customer_id,
+	i.film_id,
+	CONCAT(fa.film_id, '_', fa.actor_id) as film_actor_id,
+	p.amount as sales
+FROM
+	payment as p
+INNER JOIN
+	rental as r ON r.rental_id = p.rental_id
+INNER JOIN
+	inventory as i ON i.inventory_id = r.inventory_id
+INNER JOIN
+	film_actor as fa ON fa.film_id = i.film_id
+INNER JOIN
+	staff as s ON s.staff_id = p.staff_id
 ;
