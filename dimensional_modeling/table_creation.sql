@@ -44,8 +44,7 @@ CREATE TABLE IF NOT EXISTS dim_customer
 
 CREATE TABLE IF NOT EXISTS dim_store
 (
-	store_staff_id INTEGER PRIMARY KEY,
-	store_id INTEGER NOT NULL,
+	store_id INTEGER PRIMARY KEY,
 	staff_id INTEGER NOT NULL,
 	employee_name VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
@@ -64,12 +63,13 @@ CREATE TABLE IF NOT EXISTS dim_actor
 );
 
 -- create fact table
+
 CREATE TABLE IF NOT EXISTS fact_sales
 (
 	date_key INTEGER REFERENCES dim_date(date_key),
-	store_staff_id INTEGER REFERENCES dim_store(store_staff_id),
+	store_id INTEGER REFERENCES dim_store(store_id),
 	customer_id SMALLINT REFERENCES dim_customer(customer_id),
 	film_id INTEGER REFERENCES dim_film(film_id),
-	film_actor_id VARCHAR(50) REFERENCES dim_actor(film_actor_id)
+	film_actor_id VARCHAR(50) REFERENCES dim_actor(film_actor_id),
 	sales REAL
 );

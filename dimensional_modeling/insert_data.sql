@@ -71,9 +71,8 @@ INNER JOIN
 ;
 
 INSERT INTO dim_store
-(store_staff_id, store_id, staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id)
+(store_id, staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id)
 SELECT
-	CONCAT(sa.store_id, sa.staff_id)::INTEGER as store_staff_id,
 	sa.store_id,
 	sa.staff_id,
 	(sa.first_name || ' ' || last_name) as employee_name,
@@ -104,10 +103,10 @@ INNER JOIN
 -- insert data to fact table
 
 INSERT INTO fact_sales
-(date_key, store_staff_id, customer_id, film_id, film_actor_id, sales)
+(date_key, store_id, customer_id, film_id, film_actor_id, sales)
 SELECT
 	DISTINCT(TO_CHAR(p.payment_date, 'yyyymmdd')::INTEGER) as date_key,
-	CONCAT(s.store_id, s.staff_id)::INTEGER as store_staff_id,
+	s.store_id,
 	p.customer_id,
 	i.film_id,
 	CONCAT(fa.film_id, '_', fa.actor_id) as film_actor_id,
