@@ -1,11 +1,14 @@
 INSERT INTO fact_sales
-(date_key, store_id, customer_id, film_id, film_actor_id, sales)
+(payment_id, date_key, staff_id, customer_id, rental_id, store_address, customer_address, film_id, sales)
 SELECT
-	DISTINCT(TO_CHAR(p.payment_date, 'yyyymmdd')::INTEGER) as date_key,
-	s.store_id,
+	p.payment_id,
+	TO_CHAR(p.payment_date, 'yyyymmdd')::INTEGER as date_key,
+	p.staff_id,
 	p.customer_id,
+	r.rental_id,
+	s.address_id,
+	c.address_id,
 	i.film_id,
-	CONCAT(fa.film_id, '_', fa.actor_id) as film_actor_id,
 	p.amount as sales
 FROM
 	payment as p
@@ -14,7 +17,7 @@ INNER JOIN
 INNER JOIN
 	inventory as i ON i.inventory_id = r.inventory_id
 INNER JOIN
-	film_actor as fa ON fa.film_id = i.film_id
-INNER JOIN
 	staff as s ON s.staff_id = p.staff_id
+INNER JOIN
+	customer as c ON c.customer_id = p.customer_id
 ;
