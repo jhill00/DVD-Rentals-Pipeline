@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS dim_film
 	film_length SMALLINT NOT NULL,
 	rating VARCHAR(10) NOT NULL,
 	special_features VARCHAR(100) NOT NULL,
-	film_language VARCHAR(50) NOT NULL
+	film_language VARCHAR(50) NOT NULL,
+	last_update TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS dim_customer
@@ -29,12 +30,6 @@ CREATE TABLE IF NOT EXISTS dim_customer
 	customer_id SMALLINT PRIMARY KEY,
 	customer_name VARCHAR(50) NOT NULL,
 	email VARCHAR(50),
-	country VARCHAR(40) NOT NULL,
-	district VARCHAR(30) NOT NULL,
-	city VARCHAR(30) NOT NULL,
-	postal_code VARCHAR(30),
-	address VARCHAR(50) NOT NULL,
-	phone VARCHAR(20),
 	active BOOLEAN NOT NULL,
 	create_date DATE NOT NULL,
 	last_update TIMESTAMP NOT NULL
@@ -42,20 +37,33 @@ CREATE TABLE IF NOT EXISTS dim_customer
 
 CREATE TABLE IF NOT EXISTS dim_store
 (
-	store_id INTEGER PRIMARY KEY,
-	staff_id INTEGER NOT NULL,
+	staff_id INTEGER PRIMARY KEY,
+	store_id INTEGER NOT NULL,
 	employee_name VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	active BOOLEAN, 
 	staff_username VARCHAR(20) NOT NULL,
 	staff_password VARCHAR(50)NOT NULL,
-	manager_staff_id INTEGER
+	manager_staff_id INTEGER,
+	last_update TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS dim_actor
+CREATE TABLE IF NOT EXISTS dim_address
 (
-	film_actor_id VARCHAR(50) PRIMARY KEY,
-	film_id INTEGER NOT NULL,
-	actor_id INTEGER NOT NULL,
-	actor_name VARCHAR(50) NOT NULL
-);
+	address_id INTEGER PRIMARY KEY,
+	country VARCHAR(40) NOT NULL,
+	district VARCHAR(30) NOT NULL,
+	city VARCHAR(30) NOT NULL,
+	postal_code VARCHAR(30),
+	address VARCHAR(50) NOT NULL,
+	phone VARCHAR(20),
+	last_update TIMESTAMP NOT NULL
+)
+
+CREATE TABLE IF NOT EXISTS dim_rental
+(
+	rental_id INTEGER PRIMARY KEY,
+	rental_date TIMESTAMP NOT NULL,
+	return_date TIMESTAMP,
+	last_update TIMESTAMP NOT NULL
+)

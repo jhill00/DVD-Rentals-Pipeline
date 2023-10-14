@@ -15,37 +15,21 @@ FROM
 	payment;
 
 INSERT INTO dim_customer
-(customer_id, customer_name, email, country, district, city, 
- postal_code, address, phone, active, create_date, last_update)
+(customer_id, customer_name, email, active, create_date, last_update)
  SELECT
- 	c.customer_id,
-	(c.first_name || ' ' || c.last_name) as customer_name,
-	c.email,
-	co.country,
-	a.district,
-	ct.city,
-	a.postal_code,
-	CASE
-	WHEN a.address2 <> '' THEN concat(a.address, ', ', a.address2)
-	ELSE a.address
-	END as address,
-	a.phone,
-	c.activebool as active,
-	c.create_date,
-	c.last_update
+ 	customer_id,
+	(first_name || ' ' || last_name) as customer_name,
+	email,
+	activebool as active,
+	create_date,
+	last_update
 FROM
-	customer as c
-INNER JOIN
-	address as a ON c.address_id = a.address_id
-INNER JOIN
-	city as ct ON a.city_id = ct.city_id
-INNER JOIN
-	country as co ON ct.country_id = co.country_id
+	customer
 ;
 
 INSERT INTO dim_film
 (film_id, title, description, release_year, category, rental_duration, 
-rental_rate, film_length, rating, special_features, film_language)
+rental_rate, film_length, rating, special_features, film_language, last_update)
 SELECT
 	f.film_id,
 	f.title,
@@ -57,7 +41,8 @@ SELECT
 	f.length as film_length,
 	f.rating,
 	f.special_features,
-	l.name as film_language
+	l.name as film_language,
+	f.last_update
 FROM
 	film as f
 INNER JOIN
@@ -69,7 +54,7 @@ INNER JOIN
 ;
 
 INSERT INTO dim_store
-(store_id, staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id)
+(store_id, staff_id, employee_name, email, active, staff_username, staff_password, manager_staff_id, last_update)
 SELECT
 	sa.store_id,
 	sa.staff_id,
@@ -78,22 +63,43 @@ SELECT
 	sa.active,
 	sa.username as staff_username,
 	sa.password as staff_password,
-	so.manager_staff_id
+	so.manager_staff_id,
+	sa.last_update
 FROM
 	staff as sa
 INNER JOIN
 	store as so ON sa.store_id = so.store_id
 ;
 
-INSERT INTO dim_actor
-(film_actor_id, film_id, actor_id, actor_name)
+INSERT INTO dim_address
+(address_id, country, district, city, postal_code, address, phone, last_update)
 SELECT
-	CONCAT(fa.film_id, '_', fa.actor_id) as film_actor_id,
-	fa.film_id,
-	fa.actor_id,
-	(a.first_name || ' ' || a.last_name) as actor_name
+	a.address_id,
+ 	co.country,
+	a.district,
+	ct.city,
+	a.postal_code,
+	CASE
+	WHEN a.address2 <> '' THEN concat(a.address, ', ', a.address2)
+	ELSE a.address
+	END as address,
+	a.phone,
+	a.last_update
 FROM
-	film_actor as fa
+	address as a
 INNER JOIN
-	actor as a ON a.actor_id = fa.actor_id
+	city as ct ON ct.city_id = a.city_id
+INNER JOIN
+	country as co ON co.country_id = ct.country_id
+;
+
+INSERT INTO dim_rental
+(rental_id, rental_date, return_date, last_update)
+SELECT
+	rental_id,
+	rental_date,
+	return_date,
+	last_update
+FROM
+	rental
 ;
