@@ -1,3 +1,5 @@
+-- What store grosses the highest sales?
+
 {{
     config(
         materialized='view',
