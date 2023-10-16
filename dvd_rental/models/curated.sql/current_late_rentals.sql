@@ -1,3 +1,6 @@
+-- The DVD store charges a late fee of $0.50 a day for every day a rental is passed its due date. 
+-- What customers are currently late on their return(s) and how much do they owe?
+
 {{
     config(
         schema="{{ env_var('CURATED_SCHEMA') }}"

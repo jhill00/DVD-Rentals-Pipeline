@@ -1,3 +1,5 @@
+-- What film category generates the most revenue by country? What percentage of the country's market does it make up?
+
 {{
     config(
         schema="{{ env_var('CURATED_SCHEMA') }}"
