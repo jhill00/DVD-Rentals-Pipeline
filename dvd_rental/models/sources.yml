@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: DVD_Rental
+    database: DVD_Rental
+    schema: AIRBYTE_SCHEMA
+    tables:
+      - name: address
+      - name: category
+      - name: city
+      - name: country
+      - name: customer
+      - name: film
+      - name: film_category
+      - name: inventory
+      - name: language
+      - name: payment
+      - name: rental
+      - name: staff
+      - name: store
+      - name: actor
+      - name: film_actor
