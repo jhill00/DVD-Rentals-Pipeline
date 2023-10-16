@@ -1,7 +1,6 @@
 {{
     config(
-        materialized='view',
-		schema="{{ env_var('CURATED_SCHEMA') }}"
+        schema="{{ env_var('CURATED_SCHEMA') }}"
     )
 }}
 
