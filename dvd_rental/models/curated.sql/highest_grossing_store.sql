@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='view',
+		schema="{{ env_var('CURATED_SCHEMA') }}"
+    )
+}}
+
 SELECT
 	s.store_id,
 	a.country,
