@@ -3,7 +3,7 @@
 
 {{
     config(
-        schema="{{ env_var('CURATED_SCHEMA') }}"
+        schema='CURATED'
     )
 }}
 
@@ -18,6 +18,6 @@ SELECT
     rental_duration,
 	(0.5 * (rental_duration - permitted_duration)) as late_fee
 FROM
-	{{ref('current_rentals')}}
+	{{ref('stg_current_rentals')}}
 WHERE
 	rental_duration > permitted_duration

@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: dim_store
+    columns:
+      - name: staff_id
+        tests:
+          - unique
+          - not_null

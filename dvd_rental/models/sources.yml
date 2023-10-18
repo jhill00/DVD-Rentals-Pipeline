@@ -1,22 +1,92 @@
 version: 2
 
 sources:
-  - name: DVD_Rental
+  - name: dvd_rental
     database: DVD_Rental
     schema: AIRBYTE_SCHEMA
     tables:
-      - name: address
-      - name: category
-      - name: city
-      - name: country
-      - name: customer
-      - name: film
-      - name: film_category
-      - name: inventory
-      - name: language
-      - name: payment
-      - name: rental
-      - name: staff
-      - name: store
       - name: actor
+        columns:
+          - name: actor_id
+            tests:
+            - unique
+            - not_null
+      - name: address
+        columns:
+          - name: address_id
+            tests:
+            - unique
+            - not_null
+      - name: category
+        columns:
+          - name: category_id
+            tests:
+            - unique
+            - not_null
+      - name: city
+        columns:
+          - name: city_id
+            tests:
+            - unique
+            - not_null
+      - name: country
+        columns:
+          - name: country_id
+            tests:
+            - unique
+            - not_null
+      - name: customer
+        columns:
+          - name: customer_id
+            tests:
+            - unique
+            - not_null
+      - name: film
+        columns:
+          - name: film_id
+            tests:
+            - unique
+            - not_null
       - name: film_actor
+      - name: film_category
+        columns:
+          - name: film_id
+            tests:
+            - unique
+            - not_null
+      - name: inventory
+        columns:
+          - name: inventory_id
+            tests:
+            - unique
+            - not_null
+      - name: language
+        columns:
+          - name: language_id
+            tests:
+            - unique
+            - not_null
+      - name: payment
+        columns:
+          - name: payment_id
+            tests:
+            - unique
+            - not_null
+      - name: rental
+        columns:
+          - name: rental_id
+            tests:
+            - unique
+            - not_null
+      - name: staff
+        columns:
+          - name: staff_id
+            tests:
+            - unique
+            - not_null
+      - name: store
+        columns:
+          - name: store_id
+            tests:
+            - unique
+            - not_null
