@@ -2,8 +2,7 @@
 
 {{
     config(
-        materialized='view',
-		schema="{{ env_var('CURATED_SCHEMA') }}"
+        schema='CURATED'
     )
 }}
 
@@ -14,11 +13,11 @@ SELECT
 	a.address,
 	SUM(f.sales) as sales
 FROM
-	fact_sales as f
+	{{ref('fact_sales')}} as f
 INNER JOIN
-	dim_store as s ON s.staff_id = f.staff_id
+	{{ref('dim_store')}} as s ON s.staff_id = f.staff_id
 INNER JOIN
-	dim_address as a ON a.address_id = f.store_address
+	{{ref('dim_address')}} as a ON a.address_id = f.store_address
 GROUP BY
 	1,2,3,4
 ORDER BY

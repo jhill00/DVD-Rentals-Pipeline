@@ -2,7 +2,7 @@
 
 {{
     config(
-        schema="{{ env_var('CURATED_SCHEMA') }}"
+        schema='CURATED'
     )
 }}
 
@@ -15,7 +15,7 @@ WITH category_rank as
 		category_sales,
 		DENSE_RANK() OVER (PARTITION BY country ORDER BY category_sales DESC) as category_rank
 	FROM
-		{{ref('country_film_interest')}}
+		{{ref('stg_country_film_interest')}}
 )
 
 SELECT
