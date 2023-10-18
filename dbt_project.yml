@@ -33,5 +33,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dvd_rental:
     # Config indicated by + and applies to all files under models/dimensional_model/
-    models:
+    dimensional_model:
+      +materialized: table
+
+    curated:
+      +materialized: table
+
+    staging:
       +materialized: table
