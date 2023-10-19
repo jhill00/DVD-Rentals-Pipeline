@@ -11,4 +11,4 @@ There are many dimensional models to choose from, but given the use case and com
 
 To create the dimensional model and help us answer some questions, we'll use DBT due to its ease of maintainability, data quality testing, and the ability to create dependencies. Combining these aspects allows us to perform tests along the transformation process to ensure we're providing quality information to end users.
 
-With all that said, here is a diagram of the DVD Rental store's database modeled to a star schema.
+With all that said, here is a [diagram](https://github.com/jhill00/DataEng_DVDRentals/blob/main/database/dvdrental-dimensional_model/dvd_dim_model.pdf) of the DVD Rental store's database modeled to a star schema.
