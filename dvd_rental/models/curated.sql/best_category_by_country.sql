@@ -13,7 +13,7 @@ WITH category_rank as
 		film_category,
 		country_sales,
 		category_sales,
-		DENSE_RANK() OVER (PARTITION BY country ORDER BY category_sales DESC) as category_rank
+		ROW_NUMBER() OVER (PARTITION BY country ORDER BY category_sales DESC) as category_rank
 	FROM
 		{{ref('stg_country_film_interest')}}
 )
