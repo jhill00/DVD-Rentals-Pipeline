@@ -1,5 +1,5 @@
 *.env
 .user.yml
-*.logs
-target/*
-dbt_packages/*
+dvd_rental/logs/*
+dvd_rental/target/*
+dvd_rental/dbt_packages/*

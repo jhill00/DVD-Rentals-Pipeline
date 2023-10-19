@@ -8,3 +8,7 @@ Before we can choose what type of dimensional model to use, we need to first thi
 - What film category generates the most revenue by country? What percentage of the country's market does it make up?
 
 There are many dimensional models to choose from, but given the use case and complexity of our dataset, a star schema is chosen. Star schema consists of fact and dimension tables; all dimension tables have a relationship with and only with the fact table. This creates the image of a star, hence the name. Dimension tables contain qualitative information such as addresses, labels, categories, etc.. In some cases, dimension tables are denormalized but will always have a primary key. A fact table contains numerical information and foreign keys to reference the dimension tables.
+
+To create the dimensional model and help us answer some questions, we'll use DBT due to its ease of maintainability, data quality testing, and the ability to create dependencies. Combining these aspects allows us to perform tests along the transformation process to ensure we're providing quality information to end users.
+
+With all that said, here is a diagram of the DVD Rental store's database modeled to a star schema.
