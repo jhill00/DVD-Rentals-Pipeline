@@ -19,7 +19,7 @@ select
 	f.film_id,
 	f.title,
 	f.description,
-	f.release_year,
+	f.release_year::number as release_year,
 	c.name as category,
 	f.rental_duration,
 	f.rental_rate,
