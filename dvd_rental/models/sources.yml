@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: dvd_rental
-    database: DVD_Rental
-    schema: AIRBYTE_SCHEMA
+    database: DVD_RENTAL
+    schema: RAW
     tables:
       - name: actor
         columns:
@@ -48,6 +48,14 @@ sources:
             - unique
             - not_null
       - name: film_actor
+        columns:
+          - name: film_id
+            tests:
+            - not_null
+        columns:
+          - name: actor_id
+            tests:
+            - not_null
       - name: film_category
         columns:
           - name: film_id

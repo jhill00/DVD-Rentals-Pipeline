@@ -1,26 +1,4 @@
-WITH 
-
-source_film as
-(
-	SELECT * FROM {{ source('dvd_rental', 'film') }}
-),
-
-source_film_category as
-(
-	SELECT * FROM {{ source('dvd_rental', 'film_category') }}
-),
-
-source_category as
-(
-	SELECT * FROM {{ source('dvd_rental', 'category') }}
-),
-
-source_language as
-(
-	SELECT * FROM {{ source('dvd_rental', 'language') }}
-)
-
-SELECT
+select
 	f.film_id,
 	f.title,
 	f.description,
@@ -33,11 +11,11 @@ SELECT
 	f.special_features,
 	l.name as film_language,
 	f.last_update
-FROM
-	source_film as f
-INNER JOIN
-	source_film_category as fc ON f.film_id = fc.film_id
-INNER JOIN
-	source_category as c ON fc.category_id = c.category_id
-INNER JOIN
-	source_language as l ON f.language_id = l.language_id
+from
+	{{ source('dvd_rental', 'film') }} as f
+inner join
+	{{ source('dvd_rental', 'film_category') }} as fc on f.film_id = fc.film_id
+inner join
+	{{ source('dvd_rental', 'category') }} as c on fc.category_id = c.category_id
+inner join
+	{{ source('dvd_rental', 'language') }} as l on f.language_id = l.language_id

@@ -1,12 +1,7 @@
-source_rental as
-(
-	SELECT * FROM {{ source('dvd_rental', 'rental') }}
-)
-
-SELECT
+select
 	rental_id,
 	rental_date,
 	return_date,
 	last_update
-FROM
-	source_rental
+from
+	{{ source('dvd_rental', 'rental') }}
