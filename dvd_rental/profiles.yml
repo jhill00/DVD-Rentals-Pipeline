@@ -3,11 +3,11 @@ dvd_rental:
     prod:
       type: snowflake
       threads: 1
-      account: "{{ env_var('DBT_ENV_SECRET_ACCOUNT') }}"
-      user: "{{ env_var('DBT_ENV_SECRET_USER') }}"
-      password: "{{ env_var('DBT_ENV_SECRET_PASSWORD') }}"
-      role:  "{{ env_var('DBT_ENV_SECRET_ROLE') }}"
-      warehouse:  "{{ env_var('DBT_ENV_SECRET_WAREHOUSE') }}"
-      database: "{{ env_var('DBT_ENV_SECRET_DATABASE') }}"
-      schema: "{{ env_var('DBT_ENV_SECRET_SCHEMA') }}"
+      account: VRB60986
+      user: AIRBYTE_USER
+      password: airbyte_dvd1
+      role:  AIRBYTE_ROLE
+      warehouse:  PROJECT_TWO
+      database: DVD_Rental
+      schema: RAW
   target: prod
