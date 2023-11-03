@@ -16,4 +16,4 @@ Below is a diagram of the pipeline architecture as well as the DVD Rental store'
 ![pipeline_architecture](https://github.com/jhill00/DataEng_DVDRentals/blob/main/architecture/pipeline_architecture.png)
 ![star_schema_model](https://github.com/jhill00/DataEng_DVDRentals/blob/main/architecture/ER_Diagram-dvd_rentals.png)
 
-As a final notes, Snowflake stores data in a columnar format. This allows for more efficient storage and faster aggregation queires. Because of this, one big table that is comprised of all the DVD store's data has also been created to take advantage of this storage format. This can be seen in ~/dvd_rental/models/curated/obt.sql.
+As a final notes, Snowflake stores data in a columnar format. This allows for more efficient storage and faster aggregation queries. Because of this, one big table that is comprised of all the DVD store's data has also been created to take advantage of this storage format. This can be seen in ~/dvd_rental/models/curated/obt.sql.
