@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: fact_sales
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: rental_id
+        tests:
+          - unique
+          - not_null
