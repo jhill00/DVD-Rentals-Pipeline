@@ -1,3 +1,13 @@
+-- handle potential rental_id duplicates
+with payment_rental_id_dups as
+(
+	select
+		*,
+		row_number() over(partition by rental_id order by payment_date desc) as rental_num
+	from
+		{{ source('dvd_rental', 'payment') }}
+)
+
 select
 	p.payment_id,
 	p.payment_date::date as date,
@@ -9,7 +19,7 @@ select
 	i.film_id,
 	p.amount as sales
 from
-	{{ source('dvd_rental', 'payment') }} as p
+	payment_rental_id_dups as p
 inner join
 	{{ source('dvd_rental', 'rental') }} as r on r.rental_id = p.rental_id
 inner join
@@ -18,3 +28,5 @@ inner join
 	{{ source('dvd_rental', 'staff') }} as s on s.staff_id = p.staff_id
 inner join
 	{{ source('dvd_rental', 'customer') }} as c on c.customer_id = p.customer_id
+where
+	p.rental_num = 1
